@@ -183,7 +183,15 @@ query_find_events_by_activity_group_and_country = [
     }
 ]
 
-query_find_events_by_activity_group_and_specific_country = [
+query_find_events_by_activity_group_and_specific_country = lambda country :[
+{
+            "$match": {
+                "location.country": {"$regex": f"^{country}$", "$options": "i"},
+                "group_name": {'$ne': []},
+                "location.latitude": {"$ne": None},
+                "location.longitude": {"$ne": None}
+            }
+        },
     {"$unwind": "$group_name"},
     {
         "$group": {

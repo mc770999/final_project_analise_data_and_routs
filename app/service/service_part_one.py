@@ -66,20 +66,11 @@ def find_events_by_activity_group_and_country(num=None):
 
 # a שאלה 8
 def find_events_by_activity_group_and_specific_country(country, num=None):
-    json_country = {
-            "$match": {
-                "location.country": {"$regex": f"^{country}$", "$options": "i"},
-                "group_name": {'$ne': []},
-                "location.latitude": {"$ne": None},
-                "location.longitude": {"$ne": None}
-            }
-        }
     try:
-        query_find_events_by_activity_group_and_specific_country.insert(0, json_country)
-        attacks = list(event_collection.aggregate(query_find_events_by_activity_group_and_specific_country))
+        attacks = list(event_collection.aggregate(query_find_events_by_activity_group_and_specific_country(country)))
         if attacks:
             return Success(attacks[:num])
         else:
             return Failure("find attacks failed.")
     except Exception as e:
-        print(e)
+        return e

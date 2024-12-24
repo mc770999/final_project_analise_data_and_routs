@@ -117,7 +117,7 @@ def get_events_by_country_and_year_top_5():
     try:
         attacks = find_events_by_country_and_year(5)
         if isinstance(attacks, Success):
-            return jsonify({"attacks": attacks.value_or([])}), 200
+            return jsonify({"html":create_world_map(attacks.value_or([]))}), 200
         raise Exception("Error from data base to get attacks")
     except Exception as e:
         print(f"Error fetching top events: {str(e)}")
