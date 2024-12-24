@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 CORS(app)
 
+
 app.register_blueprint(event_attack_type_blueprint, url_prefix="/api/event_attack_type")
 app.register_blueprint(avg_casualties_country_blueprint, url_prefix="/api/avg_casualties_country")
 app.register_blueprint(group_casualties_blueprint, url_prefix="/api/group_casualties")
